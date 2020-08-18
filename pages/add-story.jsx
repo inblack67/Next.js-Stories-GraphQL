@@ -15,24 +15,28 @@ const AddStory = () => {
 
     const [addStory, { loading, error, data }] = useMutation(addStoryQuery);
 
-    const onAdd = formData => {
+    const onAdd = ({ title, description }) => {
+
+        setSubmitting(true);
 
         addStory({
-            variables: formData
+            variables: {
+                title,
+                description
+            }
         });
 
-        // router.push('/');
-    }
-
-    if (error) {
-        console.error(error);
+        setSubmitting(false);
     }
 
     if (loading) {
         return <Preloader />
     }
 
-    console.log(data);
+    if (data) {
+        M.toast({ html: 'Story added!' });
+        router.push('/');
+    }
 
     return (
         <div className='container'>
