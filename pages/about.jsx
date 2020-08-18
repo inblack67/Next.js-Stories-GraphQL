@@ -1,7 +1,7 @@
 const About = () => {
     return (
         <div className='container'>
-            <h1>Nextjs Stories</h1>
+            <h3>Nextjs Stories</h3>
             <p className="flow-text">
                 Nextjs | GraphQL | Apollo | MongoDB | Materialize
             </p>
