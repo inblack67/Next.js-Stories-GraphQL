@@ -1,17 +1,22 @@
 import { gql } from '@apollo/client'
 
-export const allInOne = gql`
+export const fetchStoriesQuery = gql`
 {
-    addStory(title:"Story3", description:"lorem3"){
-      title
-    }
-    stories{
-      title,
-      _id,
-      description
-    },
-    story(id: "5f3ba9e24beaac0bacd431f7"){
-      title
-    }
+  stories{
+    title,
+    description,
+    _id
   }
+}
 `;
+
+export const addStoryQuery = gql`
+{
+  addStory(title: $title, description: $description){
+    title,
+    description,
+    _id
+  }
+}
+`;
+
