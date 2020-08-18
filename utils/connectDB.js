@@ -7,7 +7,7 @@ export async function connectDB() {
             useCreateIndex: true,
             useFindAndModify: false,
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
         })
         console.log(`Mongo is here`.blue.bold);
     } catch (err) {

@@ -1,6 +1,7 @@
 import { useQuery, gql } from '@apollo/client';
 import { fetchStoriesQuery } from '../utils/queries/Story';
 import Preloader from '../components/Preloader';
+import Link from 'next/link'
 
 export default function Home() {
 
@@ -21,7 +22,11 @@ export default function Home() {
       <h3>Stories</h3>
       <ul className="collection">
         {stories.map(story => <li key={story._id} className='collection-item'>
-          {story.title}
+          <Link as={`/story/${story._id}`} href='/story/[id]'>
+            <a>
+              {story.title}
+            </a>
+          </Link>
         </li>)}
       </ul>
     </div>

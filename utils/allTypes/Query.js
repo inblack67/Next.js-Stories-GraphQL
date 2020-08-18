@@ -7,7 +7,7 @@ connectDB();
 
 export const Query = queryType({
     definition(t) {
-
+        t.typeName = 'SingleStory'
         t.list.field('stories', {
             type: Story,
             description: 'GET Stories',
