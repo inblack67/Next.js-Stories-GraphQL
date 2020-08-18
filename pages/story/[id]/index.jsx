@@ -1,21 +1,22 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useQuery } from '@apollo/client'
-import { fetchSingleStoryQuery } from '../../../utils/queries/Story'
+import { useMutation, useQuery } from '@apollo/client'
+import { fetchSingleStoryQuery, deleteStoryQuery } from '../../../utils/queries/Story'
 import Preloader from '../../../components/Preloader'
 import DisplayError from '../../../components/DisplayError'
-import Link from 'next/link'
 import EditStory from '../../../components/EditStory'
 
 const SingleStory = () => {
 
-    const { query: { id } } = useRouter();
+    const router = useRouter();
 
     const { data, loading, error } = useQuery(fetchSingleStoryQuery, {
         variables: {
-            id
+            id: router.query.id
         }
     });
+
+    const [deleteStory, mutationResponse] = useMutation(deleteStoryQuery);
 
     if (loading) {
         return <Preloader />
@@ -29,11 +30,24 @@ const SingleStory = () => {
     const { story, story: { title, description, _id } } = data;
 
     const onDelete = async e => {
-        try {
-            console.log('delete story');
-        } catch (err) {
-            console.error(err)
-        }
+        deleteStory({
+            variables: {
+                id: _id
+            }
+        })
+    }
+
+    if(mutationResponse.loading){
+        return <Preloader />
+    }
+
+    if(mutationResponse.error){
+        return <DisplayError message={error.message} />
+    }
+
+    if(mutationResponse.data){
+        M.toast({ html: `${mutationResponse.data.deleteStory.title} deleted!` });
+        router.push('/');
     }
 
     return (

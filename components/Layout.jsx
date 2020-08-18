@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
     return (
         <header>
             <Head>
-                <title>Nextjs | GraphQL | Stories</title>
+                <title>Nextjs | Stories</title>
                 <meta name="description" content="Full Stack Next.js, GraphQL, Apollo CRUD Web App"/>
                 <meta name="keywords" content="Next.js, GraphQL, Apollo, Materialize"/>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />

@@ -31,8 +31,8 @@ mutation StoryMutation($title: String!, $description: String!){
 `;
 
 export const updateStoryQuery = gql`
-mutation StoryMutation($id: ID!, $title: String, $description: String){
-  updateStory(id: $id, title: $title, description: $description){
+mutation StoryMutation($id: ID!, $title: String, $description: String!){
+  updateStory(id:$id, title: $title, description: $description){
     title,
     description,
     _id
@@ -41,12 +41,11 @@ mutation StoryMutation($id: ID!, $title: String, $description: String){
 `;
 
 export const deleteStoryQuery = gql`
-mutation StoryMutation($title: String, $description: String){
-  addStory(title: $title, description: $description){
-    title,
-    description,
-    _id
+mutation StoryMutation($id: ID!){
+  deleteStory(id:$id){
+    title
   }
 }
+
 `;
 

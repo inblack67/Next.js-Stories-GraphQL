@@ -6,7 +6,7 @@ const Navbar = () => {
             <div className="nav-wrapper">
                 <div className="container">
                     <Link href='/'>
-                        <a className='brand-logo'>Next.js | GraphQL Stories</a>
+                        <a className='brand-logo'>Next.js Stories</a>
                     </Link>
                     <ul className="right">
                         <li>

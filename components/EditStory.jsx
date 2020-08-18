@@ -7,7 +7,7 @@ import DisplayError from './DisplayError';
 import Preloader from './Preloader';
 
 
-const EditStory = ({ story: { title, description, _id }  }) => {
+const EditStory = ({ story: { title, description, _id } }) => {
 
     const [submitting, setSubmitting] = useState(false);
 
@@ -24,25 +24,25 @@ const EditStory = ({ story: { title, description, _id }  }) => {
         }
     });
 
-    const onStoryUpdate = formData => {
+    const onStoryUpdate = ({ title, description }) => {
         setSubmitting(true);
         updateStory({
             variables: {
-                formData
+                id: _id,
+                title,
+                description
             }
         });
         setSubmitting(false);
     }
 
-    if(loading){
+    if (loading) {
         return <Preloader />
     }
 
-    if(error){
+    if (error) {
         return <DisplayError message={error.message} />
     }
-
-    console.log(data);
 
     return (
         <div>
