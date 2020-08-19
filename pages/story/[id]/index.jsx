@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { useMutation, useQuery } from '@apollo/client'
-import { fetchSingleStoryQuery, deleteStoryQuery } from '../../../utils/queries/Story'
+import { fetchSingleStoryQuery, deleteStoryQuery, fetchStoriesQuery } from '../../../utils/queries/Story'
 import Preloader from '../../../components/Preloader'
 import DisplayError from '../../../components/DisplayError'
 import EditStory from '../../../components/EditStory'
@@ -31,18 +31,17 @@ const SingleStory = () => {
 
     const onDelete = async e => {
         deleteStory({
+            refetchQueries: [{
+                query: fetchStoriesQuery
+            }],
             variables: {
                 id: _id
             }
         }).catch(err => M.toast({ html: err }));
     }
 
-    if(mutationResponse.loading){
-        return <Preloader />
-    }
-
     if(mutationResponse.data){
-        M.toast({ html: `${mutationResponse.data.deleteStory.title} deleted!` });
+        M.toast({ html: 'Story deleted' })
         router.push('/');
     }
 

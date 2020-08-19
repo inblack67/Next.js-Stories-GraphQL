@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { addStoryQuery } from '../utils/queries/Story'
+import { addStoryQuery, fetchStoriesQuery } from '../utils/queries/Story'
 import { useMutation } from '@apollo/client'
 import Preloader from '../components/Preloader'
 import DisplayError from '../components/DisplayError'
@@ -24,7 +24,10 @@ const AddStory = () => {
             variables: {
                 title,
                 description
-            }
+            },
+            refetchQueries: [{
+                query: fetchStoriesQuery
+            }],
         }).catch(err => M.toast({ html: err }));
 
         setSubmitting(false);

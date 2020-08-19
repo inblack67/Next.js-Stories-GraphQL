@@ -30,6 +30,9 @@ export const Query = queryType({
             resolve: async (parent, { id }) => {
                 try {
                     const story = await StoryModel.findById(id);
+                    if (!story) {
+                        return new ApolloError('Story does not exists', 400);
+                    }
                     return story;
                 } catch (err) {
                     console.error(err);

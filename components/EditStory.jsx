@@ -2,20 +2,19 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
-import { updateStoryQuery, fetchSingleStoryQuery } from '../utils/queries/Story'
+import { updateStoryQuery, fetchStoriesQuery } from '../utils/queries/Story'
 import DisplayError from './DisplayError';
 import Preloader from './Preloader';
+import { useRouter } from 'next/router';
 
 
 const EditStory = ({ story: { title, description, _id } }) => {
 
+    const router = useRouter();
+
     const [submitting, setSubmitting] = useState(false);
 
-    const [updateStory, { loading, error, data }] = useMutation(updateStoryQuery, {
-        refetchQueries: {
-            fetchSingleStoryQuery
-        }
-    });
+    const [updateStory, { loading, error, data }] = useMutation(updateStoryQuery);
 
     const { handleSubmit, errors, register } = useForm({
         defaultValues: {
@@ -28,10 +27,13 @@ const EditStory = ({ story: { title, description, _id } }) => {
         setSubmitting(true);
         updateStory({
             variables: {
-                id: "123",
+                id: _id,
                 title,
                 description
-            }
+            },
+            refetchQueries: [{
+                query: fetchStoriesQuery
+            }],
         }).catch(err => {
             M.toast({ html: err });
         });
@@ -40,6 +42,11 @@ const EditStory = ({ story: { title, description, _id } }) => {
 
     if (loading) {
         return <Preloader />
+    }
+
+    if(data){
+        M.toast({ html: 'Story Updated' });
+        router.push('/');
     }
 
     return (
