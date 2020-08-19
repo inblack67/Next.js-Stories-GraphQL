@@ -23,8 +23,8 @@ const SingleStory = () => {
     }
 
     if (error) {
-        console.error(error);
-        return <DisplayError message={error.message} />;
+        M.toast({ html: error.message });
+        return <DisplayError message={error.message} />
     }
 
     const { story, story: { title, description, _id } } = data;
@@ -34,15 +34,11 @@ const SingleStory = () => {
             variables: {
                 id: _id
             }
-        })
+        }).catch(err => M.toast({ html: err }));
     }
 
     if(mutationResponse.loading){
         return <Preloader />
-    }
-
-    if(mutationResponse.error){
-        return <DisplayError message={error.message} />
     }
 
     if(mutationResponse.data){

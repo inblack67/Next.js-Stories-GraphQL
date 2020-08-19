@@ -12,7 +12,7 @@ const handler = server.createHandler({
 // dont parse the body, next. apollo got this
 export const config = {
   api: {
-    bodyParser: false
+    bodyParser: false,
   }
 }
 

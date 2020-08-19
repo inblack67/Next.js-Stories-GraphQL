@@ -28,20 +28,18 @@ const EditStory = ({ story: { title, description, _id } }) => {
         setSubmitting(true);
         updateStory({
             variables: {
-                id: _id,
+                id: "123",
                 title,
                 description
             }
+        }).catch(err => {
+            M.toast({ html: err });
         });
         setSubmitting(false);
     }
 
     if (loading) {
         return <Preloader />
-    }
-
-    if (error) {
-        return <DisplayError message={error.message} />
     }
 
     return (

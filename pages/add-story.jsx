@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { addStoryQuery } from '../utils/queries/Story'
 import { useMutation } from '@apollo/client'
 import Preloader from '../components/Preloader'
+import DisplayError from '../components/DisplayError'
 
 const AddStory = () => {
 
@@ -24,7 +25,7 @@ const AddStory = () => {
                 title,
                 description
             }
-        });
+        }).catch(err => M.toast({ html: err }));
 
         setSubmitting(false);
     }
